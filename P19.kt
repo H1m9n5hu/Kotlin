@@ -2,31 +2,20 @@ import java.util.Scanner
 fun main(){
     val sc = Scanner(System.`in`)
     val (n1, n2, n3) = readLine()!!.split(" ").map(String::toInt)
-    var lst1 = mutableListOf<Int>()
-    var lst2 = mutableListOf<Int>()
-    var lst3 = mutableListOf<Int>()
-    
-    for(i in 0 until n1)
-        lst1.add(sc.nextInt())
-    for(i in 0 until n2)
-        lst2.add(sc.nextInt())
-    for(i in 0 until n3)
-        lst3.add(sc.nextInt())
+    val arr = IntArray(n1+n2+n3)
+
+    for(i in 0 until n1+n2+n3)
+        arr[i] = sc.nextInt()
         
+    var set = arr.toSet()
     var lst = mutableListOf<Int>()
     
-    for(i in 0 until n1){
-        if(lst2.contains(lst1[i]))
-            lst.add(lst1[i])
-        if(lst3.contains(lst1[i]) && !lst.contains(lst1[i]))
-            lst.add(lst1[i])
-    }
-    for(i in 0 until n2)
-        if(lst3.contains(lst2[i]) && !lst.contains(lst2[i]))
-            lst.add(lst2[i])
-            
+    for(i in set)
+        if(arr.filter{it == i}.count() > 1)
+            lst.add(i)
     lst.sort()
+    
     println(lst.size)
-    for(i in lst)
-        println(i)
+    for(element in lst)
+        println(element)
 }
